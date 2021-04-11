@@ -1,4 +1,4 @@
-/*Dhiren Nency Nisha*/
+/*Dhiren Nency Nisha yadav*/
 /* DATABASE CREATEION */
 
 CREATE DATABASE	dbsatyamevjayate;
