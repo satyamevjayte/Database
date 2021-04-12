@@ -1,6 +1,3 @@
-/*Dhiren Tailor Nency Rana Nisha yadav*/
-/* DATABASE CREATEION */
-
 CREATE DATABASE	dbsatyamevjayate;
 
 /*  TABLE FOR POLICEROLE  */
@@ -52,14 +49,6 @@ PersonImage  VARBINARY(160) NOT NULL
 
 /* TABLE FOR DOCUMENT  */
 
-CREATE TABLE Document(
-DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
-DocumentType VARCHAR(70) NOT NULL,
-DocumentImage VARBINARY(160) NOT NULL,
-Description VARCHAR(100) NULL,
-UploadDateTime DATETIME NOT NULL
-);
-
 
 
 /* TABLE FOR POLICESTATION */
@@ -104,13 +93,22 @@ ALTER TABLE Police
 ADD CONSTRAINT fkPolicePersonID FOREIGN KEY(PersonID) REFERENCES Person(PersonID);
 
 ALTER TABLE Police
-ADD CONSTRAINT fkPoliceDocumentID FOREIGN KEY(DocumentID) REFERENCES Document(DocumentID);
-
-ALTER TABLE Police
 ADD CONSTRAINT fkPoliceAddressID FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID);
 
 ALTER TABLE Police
 ADD CONSTRAINT fkPoliceContactID FOREIGN KEY(ContactID) REFERENCES Contact(ContactID);
+
+CREATE TABLE police_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+PoliceID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE police_document
+ADD CONSTRAINT fkPoliceDocumentID FOREIGN KEY(PoliceID) REFERENCES Police(PoliceID);
+
 
 /* TABLE FOR LAWACT */
 
@@ -171,7 +169,7 @@ CrimeSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
 CrimeID BIGINT,
 AddressID BIGINT,
 PersonID  BIGINT,
-DocumentID BIGINT,
+
 ContactID BIGINT
 );
 
@@ -184,8 +182,6 @@ ADD CONSTRAINT fkCrimeSuspectCrimeID FOREIGN KEY (CrimeID) REFERENCES Crime(Crim
 ALTER TABLE CrimeSuspect
 ADD CONSTRAINT fkCrimeSuspectPersonID FOREIGN KEY (PersonID) REFERENCES Person(PersonID);
 
-ALTER TABLE CrimeSuspect
-ADD CONSTRAINT fkCrimeSuspectDocumentID FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID);
 
 ALTER TABLE CrimeSuspect
 ADD CONSTRAINT fkCrimeSuspectAddressID FOREIGN KEY (AddressID) REFERENCES Addresses(AddressID);
@@ -193,6 +189,17 @@ ADD CONSTRAINT fkCrimeSuspectAddressID FOREIGN KEY (AddressID) REFERENCES Addres
 
 ALTER TABLE CrimeSuspect
 ADD CONSTRAINT fkCrimeSuspectContactID FOREIGN KEY (ContactID) REFERENCES Contact(ContactID);
+
+CREATE TABLE CrimeSuspect_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+CrimeSuspectID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE CrimeSuspect_document
+ADD CONSTRAINT fkCrimeSuspectDocumentID FOREIGN KEY(CrimeSuspectID) REFERENCES CrimeSuspect(CrimeSuspectID);
 
 
 /* TABLE FOR CRIME VICTIM  */
@@ -203,7 +210,6 @@ CrimeID BIGINT,
 PersonID BIGINT,
 ContactID BIGINT,
 AddressID BIGINT,
-DocumentID BIGINT,
 Height FLOAT NULL,
 Weight FLOAT NULL
 );
@@ -217,14 +223,23 @@ ADD CONSTRAINT fkCrimeVictimCrimeID FOREIGN KEY (CrimeID) REFERENCES Crime(Crime
 ALTER TABLE CrimeVictim
 ADD CONSTRAINT fkCrimeVictimPersonID FOREIGN KEY (PersonID) REFERENCES Person(PersonID);
 
-ALTER TABLE CrimeVictim
-ADD CONSTRAINT fkCrimeVictimDocumentID FOREIGN KEY(DocumentID) REFERENCES Document(DocumentID);
 
 ALTER TABLE CrimeVictim
 ADD CONSTRAINT fkCrimeVictimeAddressID FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID);
 
 ALTER TABLE CrimeVictim
 ADD CONSTRAINT fkPersonContactID FOREIGN KEY(ContactID) REFERENCES Contact(ContactID);
+
+CREATE TABLE CrimeVictim_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+CrimeVictimID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE CrimeVictim_document
+ADD CONSTRAINT fkCrimeVictimDocumentID FOREIGN KEY(CrimeVictimID) REFERENCES CrimeVictim(CrimeVictimID);
 
 
 /* TABLE FOR CRIME EVIDENCE*/
@@ -257,13 +272,21 @@ ALTER TABLE Complainer
 ADD CONSTRAINT fkComplainerPersonID FOREIGN KEY(PersonID) REFERENCES Person(PersonID);
 
 ALTER TABLE Complainer
-ADD CONSTRAINT fkComplainerDocumentID FOREIGN KEY(DocumentID) REFERENCES Document(DocumentID);
-
-ALTER TABLE Complainer
 ADD CONSTRAINT fkComplainerAddressID FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID);
 
 ALTER TABLE Complainer
 ADD CONSTRAINT fkComplainerContactID FOREIGN KEY(ContactID) REFERENCES Contact(ContactID);
+
+CREATE TABLE Complainer_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+ComplainerID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE Complainer_document
+ADD CONSTRAINT fkComplainerDocumentID FOREIGN KEY(ComplainerID) REFERENCES Complainer(ComplainerID);
 
 /* TABLE FOR Complain*/
 
@@ -320,7 +343,7 @@ ADD CONSTRAINT fkComplainLawComplainID FOREIGN KEY(ComplainID) REFERENCES Compla
 CREATE TABLE Criminal(
 CriminalID BIGINT AUTO_INCREMENT PRIMARY KEY,
 PersonID BIGINT,
-DocumentID BIGINT,
+
 ContactID BIGINT,
 AddressID BIGINT,
 Height FLOAT NULL,
@@ -334,13 +357,21 @@ ALTER TABLE Criminal
 ADD CONSTRAINT fkCriminalPersonID FOREIGN KEY(PersonID) REFERENCES Person(PersonID);
 
 ALTER TABLE Criminal
-ADD CONSTRAINT fkCriminalDocumentID FOREIGN KEY(DocumentID) REFERENCES Document(DocumentID);
-
-ALTER TABLE Criminal
 ADD CONSTRAINT fkCriminalAddressID FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID);
 
 ALTER TABLE Criminal
 ADD CONSTRAINT fkCriminalContactID FOREIGN KEY(ContactID) REFERENCES Contact(ContactID);
+
+CREATE TABLE Criminal_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+CriminalID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE Criminal_document
+ADD CONSTRAINT fkCriminalDocumentID FOREIGN KEY(CriminalID) REFERENCES Criminal(CriminalID);
 
 /* TABLE FOR PRISON */
 
@@ -424,7 +455,7 @@ CREATE TABLE Worker(
 WorkerID BIGINT AUTO_INCREMENT PRIMARY KEY,
 DateOfJoining Date NOT NULL,
 DateOfResign Date NOT NULL,
-DocumentID BIGINT,
+
 AddressID BIGINT,
 PersonID BIGINT,
 ContactID BIGINT
@@ -436,15 +467,22 @@ ALTER TABLE Worker
 ADD CONSTRAINT fkWorkerPersonID FOREIGN KEY(PersonID) REFERENCES Person(PersonID);
 
 ALTER TABLE Worker
-ADD CONSTRAINT fkWorkerDocumentID FOREIGN KEY(DocumentID) REFERENCES Document(DocumentID);
-
-ALTER TABLE Worker
 ADD CONSTRAINT fkWorkerAddressID FOREIGN KEY(AddressID) REFERENCES Addresses(AddressID);
 
 ALTER TABLE Worker
 ADD CONSTRAINT fkWorkerContactID FOREIGN KEY(ContactID) REFERENCES Contact(ContactID);
 
 
+CREATE TABLE Worker_document(
+DocumentID BIGINT AUTO_INCREMENT PRIMARY KEY,
+WorkerID BIGINT,
+DocumentType VARCHAR(70) NOT NULL,
+DocumentImage VARBINARY(160) NOT NULL,
+Description VARCHAR(100) NULL,
+UploadDateTime DATETIME NOT NULL
+);
+ALTER TABLE Worker_document
+ADD CONSTRAINT fkWorkerDocumentID FOREIGN KEY(WorkerID) REFERENCES Worker(WorkerID);
 
 /* TABLE FORM VERIFICATION */
 
@@ -470,5 +508,3 @@ ADD CONSTRAINT fkFormVerificationPoliceID FOREIGN KEY(PoliceID) REFERENCES Polic
 
 ALTER TABLE FormVerification
 ADD CONSTRAINT fkFormVerificationWorkerID FOREIGN KEY(WorkerID) REFERENCES Worker(WorkerID);
-
-
