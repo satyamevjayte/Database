@@ -293,11 +293,8 @@ ADD CONSTRAINT fkComplainerDocumentID FOREIGN KEY(ComplainerID) REFERENCES Compl
 CREATE TABLE Complain(
 ComplainID BIGINT AUTO_INCREMENT PRIMARY KEY,
 ComplainerID BIGINT,
-
 EvidenceID BIGINT,
-
 PoliceID BIGINT,
-ComplainLawID BIGINT,
 Description VARCHAR(100) NULL,
 ComplainDateTime Datetime NOT NULL
 );
