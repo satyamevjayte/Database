@@ -324,34 +324,34 @@ ADD CONSTRAINT fkComplainComplainLawID FOREIGN KEY(ComplainLawID) REFERENCES Com
 */
 CREATE TABLE ComplainSuspect(
 ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
-ComplainerID BIGINT,
+ComplainID BIGINT,
 CrimeSuspectID BIGINT,
 Descripation varchar(200)
 );
 ALTER TABLE  ComplainSuspect
-ADD CONSTRAINT fkComplainSuspectComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ADD CONSTRAINT fkComplainSuspectComplainID FOREIGN KEY(ComplainID) REFERENCES Complain(ComplainID);
 ALTER TABLE ComplainSuspect
 ADD CONSTRAINT fkComplainCrimeSuspectID FOREIGN KEY(CrimeSuspectID) REFERENCES CrimeSuspect(CrimeSuspectID);
 
 CREATE TABLE ComplainVictim(
 ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
-ComplainerID BIGINT,
+ComplainID BIGINT,
 CrimeVictimID BIGINT,
 Descripation varchar(200)
 );
 ALTER TABLE  ComplainVictim
-ADD CONSTRAINT fkComplainVictimtComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ADD CONSTRAINT fkComplainVictimtComplainID FOREIGN KEY(ComplainID) REFERENCES Complain(ComplainID);
 ALTER TABLE ComplainVictim
 ADD CONSTRAINT fkComplainVictimSuspectID FOREIGN KEY(CrimevictimID) REFERENCES CrimeVictim(CrimevictimID);
 
 CREATE TABLE ComplainEvidence(
 ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
-ComplainerID BIGINT,
+ComplainID BIGINT,
 CrimeEvidenceID BIGINT,
 Descripation varchar(200)
 );
 ALTER TABLE  ComplainEvidence
-ADD CONSTRAINT fkComplainEvidenceComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ADD CONSTRAINT fkComplainEvidenceComplainID FOREIGN KEY(ComplainID) REFERENCES Complain(ComplainID);
 ALTER TABLE ComplainEvidence
 ADD CONSTRAINT fkComplainEvidenceSuspectID FOREIGN KEY(CrimeEvidenceID) REFERENCES CrimeEvidence(EvidenceID);
 
