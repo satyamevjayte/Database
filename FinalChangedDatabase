@@ -75,7 +75,7 @@ PoliceStationID BIGINT,
 RoleID BIGINT,
 PersonID BIGINT,
 ContactID BIGINT,
-DocumentID BIGINT,
+
 AddressID BIGINT,
 Pwd VARCHAR(16) NOT NULL,
 PoliceCardImage VARBINARY(250) NOT NULL
@@ -293,9 +293,9 @@ ADD CONSTRAINT fkComplainerDocumentID FOREIGN KEY(ComplainerID) REFERENCES Compl
 CREATE TABLE Complain(
 ComplainID BIGINT AUTO_INCREMENT PRIMARY KEY,
 ComplainerID BIGINT,
-CrimeVictimID BIGINT,
+
 EvidenceID BIGINT,
-CrimeSuspectID BIGINT,
+
 PoliceID BIGINT,
 ComplainLawID BIGINT,
 Description VARCHAR(100) NULL,
@@ -322,6 +322,40 @@ ADD CONSTRAINT fkComplainPoliceID FOREIGN KEY(PoliceID) REFERENCES Police(Police
 ALTER TABLE Complain
 ADD CONSTRAINT fkComplainComplainLawID FOREIGN KEY(ComplainLawID) REFERENCES ComplainLaw(ComplainLawID);
 */
+CREATE TABLE ComplainSuspect(
+ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
+ComplainerID BIGINT,
+CrimeSuspectID BIGINT,
+Descripation varchar(200)
+);
+ALTER TABLE  ComplainSuspect
+ADD CONSTRAINT fkComplainSuspectComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ALTER TABLE ComplainSuspect
+ADD CONSTRAINT fkComplainCrimeSuspectID FOREIGN KEY(CrimeSuspectID) REFERENCES CrimeSuspect(CrimeSuspectID);
+
+CREATE TABLE ComplainVictim(
+ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
+ComplainerID BIGINT,
+CrimeVictimID BIGINT,
+Descripation varchar(200)
+);
+ALTER TABLE  ComplainVictim
+ADD CONSTRAINT fkComplainVictimtComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ALTER TABLE ComplainVictim
+ADD CONSTRAINT fkComplainVictimSuspectID FOREIGN KEY(CrimevictimID) REFERENCES CrimeVictim(CrimevictimID);
+
+CREATE TABLE ComplainEvidence(
+ComplainSuspectID BIGINT AUTO_INCREMENT PRIMARY KEY,
+ComplainerID BIGINT,
+CrimeEvidenceID BIGINT,
+Descripation varchar(200)
+);
+ALTER TABLE  ComplainEvidence
+ADD CONSTRAINT fkComplainEvidenceComplainID FOREIGN KEY(ComplainerID) REFERENCES Complain(ComplainerID);
+ALTER TABLE ComplainEvidence
+ADD CONSTRAINT fkComplainEvidenceSuspectID FOREIGN KEY(CrimeEvidenceID) REFERENCES CrimeEvidence(EvidenceID);
+
+
 
 /* Complain law table */
 
@@ -410,7 +444,7 @@ CrimeID BIGINT,
 CriminalID BIGINT,
 PrisoningTypeID BIGINT,
 PrisonID BIGINT,
-PrisonerLawID BIGINT,
+
 PrisioningStartDate DATE NOT NULL,
 PrisioningEndDate DATE NOT NULL,
 PrisonStatus VARCHAR(30) NOT NULL
